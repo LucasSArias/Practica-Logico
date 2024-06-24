@@ -5,6 +5,7 @@ escribio(richie, lenguajeC).
 escribio(nik, gaturro18).
 escribio(stephenKing, it).
 escribio(stephenKing, misery).
+escribio(asimov, laUltimaPregunta).
 
 esComic(spiderman).
 esComic(sandman).
@@ -29,3 +30,17 @@ esBestSeller(UnaObra) :-
     escribio(UnAutor, UnaObra),
     escribio(UnAutor, OtraObra),
     UnaObra \= OtraObra.
+
+convieneContratar(UnAutor) :- %cuando es reincidente o escribió un bestSeller
+    esReincidente(UnAutor).
+convieneContratar(UnAutor) :-
+    escribio(UnAutor, UnaObra),
+    esBestSeller(UnaObra).
+
+leGustaAGus(UnaObra) :- % A gus le gusta todo lo que escribio Asimov y Sandman
+    escribio(asimov, Unaobra).
+leGustaAGus(sandman).
+
+esLibro(UnaObra) :- % Cuando fue escrito pero no es comic
+    escribio(_, UnaObra),
+    not(esComic(UnaObra)).

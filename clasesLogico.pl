@@ -37,10 +37,20 @@ convieneContratar(UnAutor) :-
     escribio(UnAutor, UnaObra),
     esBestSeller(UnaObra).
 
-leGustaAGus(UnaObra) :- % A gus le gusta todo lo que escribio Asimov y Sandman
+leGustaAGus(sandman).   % A gus le gusta todo lo que escribio Asimov y Sandman
+leGustaAGus(UnaObra) :- 
     escribio(asimov, Unaobra).
-leGustaAGus(sandman).
 
 esLibro(UnaObra) :- % Cuando fue escrito pero no es comic
     escribio(_, UnaObra),
     not(esComic(UnaObra)).
+
+/*
+Teniendo en cuenta la base de conocimientos que vimos en clase, traer resuelto para la clase que viene el siguiente pedido: Queremos saber si una obra es rioplatense, que es cuando la nacionalidad de su artista es platense (Uruguay o Argentina).
+*/
+esPlatense(asimov). % Tengo que poner que artistas son platenses
+
+esRioplatense(UnaObra):-
+    escribio(UnArtista, UnaObra),
+    esPlatense(UnArtista).
+

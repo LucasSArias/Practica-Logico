@@ -48,9 +48,54 @@ esLibro(UnaObra) :- % Cuando fue escrito pero no es comic
 /*
 Teniendo en cuenta la base de conocimientos que vimos en clase, traer resuelto para la clase que viene el siguiente pedido: Queremos saber si una obra es rioplatense, que es cuando la nacionalidad de su artista es platense (Uruguay o Argentina).
 */
-esPlatense(asimov). % Tengo que poner que artistas son platenses
+nacionalidad(nik, argentina).
+
+esNacionalidadPlatense(argentina).
+esNacionalidadPlatense(uruguaya).
 
 esRioplatense(UnaObra):-
     escribio(UnArtista, UnaObra),
-    esPlatense(UnArtista).
+    nacionalidad(UnArtista, Nacionalidad),
+    esNacionalidadPlatense(Nacionalidad).
+
+escribioSoloComics(UnAutor):-
+    escribio(UnAutor, _),
+    forall(escribio(UnAutor,UnaObra),esComic(UnaObra)).
+    
+% FUNCTORES (individuos compuestos)
+
+% novela(Tema, CantidadDeCapitulos)
+% libroDeCuentos(CantidadDeCuentos)
+% libroCientifico(Disciplina)
+% bestSeller(Precio, cantidadDePaginas)
+
+esDeGenero(it, novela(terror,11)).
+esDeGenero(ficciones, libroDeCuentos(17)).
+esDeGenero(lenguajeC, libroCientifico(programacion)).
+esDeGenero(harryPotter4, bestSeller(32000, 636)).
+
+% Una obra esta buena si es policial y tiene menos de 12 capitulos. Si es de terror siempre está buena. Los libros con más de 10 cuentos siempre son buenos. Si es una obra cientifica de fisica cuantica siempre esta buena. Si es un bestseller y el precio por pagina es menor a 50 siempre esta buena.
+
+
+
+estaBuena(UnaObra):-
+    esDeGenero(UnaObra,UnGenero),
+    esBuenGenero(UnGenero).
+
+esBuenGenero(novela(policial,Capitulos)):-
+    Capitulos < 12.
+esBuenGenero(novela(terror,_)).
+esBuenGenero(libroDeCuentos(Cuentos)):-
+    Cuentos > 10.
+esBuenGenero(libroCientifico(fisicaCuantica)).
+esBuenGenero(bestSeller(Precio,CantidadDePaginas)):-
+    CantidadDePaginas/Precio > 50.
+
+
+
+
+
+
+
+
 

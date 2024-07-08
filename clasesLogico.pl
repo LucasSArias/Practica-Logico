@@ -86,16 +86,58 @@ esBuenGenero(novela(policial,Capitulos)):-
     Capitulos < 12.
 esBuenGenero(novela(terror,_)).
 esBuenGenero(libroDeCuentos(Cuentos)):-
-    Cuentos > 10.
+    Cuentos > 10. 
 esBuenGenero(libroCientifico(fisicaCuantica)).
 esBuenGenero(bestSeller(Precio,CantidadDePaginas)):-
     CantidadDePaginas/Precio > 50.
 
+cantidadDePaginas(Obra,Paginas):-
+    esDeGenero(Obra, Genero),
+    cumpleRegla(Genero, Paginas).
 
+cumpleRegla(cientifico(_),1000).
+cumpleRegla(bestSeller(_,Paginas), Paginas).
+cumpleRegla(cuentos(CantidadDeCuentos), 5*CantidadDeCuentos).
+cumpleRegla(novela(_,Capitulos), Paginas):-
+    Paginas is Capitulos * 20.                      % is liga el resultado, con su expresion matematica. Por ej. 5 is 10/2 devuelve True, mientras que 6 is 10/2 devuelve false.
+cumpleRegla(cuentos(CantidadDeCuentos), Paginas):-
+    Paginas is CantidadDeCuentos * 5.
 
+esDeGenero(animalesFantasticos, fantastico([varita,capa,valija,caldero])).
+esBuenGenero(fantastico(_,Elementos)):-
+    member(caldero, Elementos).
+    
 
+% El puntaje de un autor es 3 * cantidad de obras bestseller que vendio 
 
+puntaje(Autor,Puntaje):-
+    escribio(Autor,_),
+    cantidadDeBestSellers(Autor,Cantidad),
+    Puntaje is 3 * Cantidad.
 
+cantidadDeBestSellers(Autor, Cantidad):-
+    bestSellersDe(Autor, ListaDeBestsellers),
+    length(ListaDeBestsellers, Cantidad).
 
+bestSellersDe(Autor, ListaDeBestsellers):-
+    findall(Obra, esBestSellerDe(Autor, Obra), ListaDeBestsellers).
+    
+esBestSellerDe(Autor, Obra):-
+    escribio(Autor, Obra),
+    esBestSeller(Obra).
 
+% Saber el promedio de copias que vendió un autor.
 
+promedioDeCopias(Autor, Promedio):-
+    listaDeCopias(Autor, Lista),
+    sumlist(Lista, CopiasTotales),
+    length(Lista, CantidadObras),
+    Promedio is CopiasTotales/CantidadObras.
+
+listaDeCopias(Autor, Lista):-
+    escribio(Autor,_),
+    findall(CopiasVendidas, copiasDeAutor(Autor, CopiasVendidas), Lista).
+
+copiasDeAutor(Autor, CopiasVendidas):-
+    escribio(Autor, Obra),
+    copiasVendidas(Obra, CopiasVendidas).

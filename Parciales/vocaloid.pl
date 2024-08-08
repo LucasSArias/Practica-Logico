@@ -77,3 +77,13 @@ famaTotal(Cantante, FamaTotal):-
     findall(Fama, (puedeParticipar(Cantante, Concierto), concierto(Concierto,_,Fama,_)), FamaDeLosConciertos),
     sumlist(FamaDeLosConciertos, FamaTotal).
 
+
+conoce(megurineLuka, hatsuneMiku).
+conoce(gumi, seeU). 
+conoce(seeU, kaito).
+
+esElUnicoEn(Cantante, Concierto):-
+    canta(Cantante,_),
+    concierto(Concierto,_,_,_),
+    puedeParticipar(Cantante, Concierto),
+    forall(conoce(Cantante, UnAmigo), not(puedeParticipar(UnAmigo, Concierto))).

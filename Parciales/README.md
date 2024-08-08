@@ -8,3 +8,5 @@ Sueños: https://docs.google.com/document/d/1QcIfJEvOb-oxIFH4jeXEfiVTgMFQa00V0nv
 Improlog (Primera carilla): https://www.utnianos.com.ar/foro/attachment.php?aid=23683
 
 Improlog (Segunda carilla): https://www.utnianos.com.ar/foro/attachment.php?aid=23684
+
+Steam Summer Sale: https://drive.google.com/file/d/1xJNQzdkVdGVQcd_y4uTUKWyf0pt-OJSH/view

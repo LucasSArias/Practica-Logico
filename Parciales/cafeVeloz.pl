@@ -92,18 +92,17 @@ nivelFalopez(omeprazol, 5).
 
 cuantaFalopaTiene(Jugador, NivelAlteracion):-
     tomo(Jugador,_),
-    findall(AlteracionDeUnProducto, (alteracionQueGenera(Producto, AlteracionDeUnProducto), tomo(Jugador, Producto)), Alteraciones),
-    sumlist(Alteraciones, NivelAlteracion).
+    findall(AlteracionDeUnProducto, (tomo(Jugador, Producto), alteracionQueGenera(Producto, AlteracionDeUnProducto)), Alteraciones),
+    sum_list(Alteraciones, NivelAlteracion).
 
 alteracionQueGenera(Producto, 0):-
     tomo(_,producto(Producto,_)).
-alteracionQueGenera(Sustancia, Alteracion):-
-    tomo(_,sustancia(Sustancia)),
+alteracionQueGenera(sustancia(Sustancia), Alteracion):-
     nivelFalopez(Sustancia, Alteracion).
-alteracionQueGenera(Compuesto, Alteracion):-
-    tomo(_,compuesto(Compuesto, Elementos)),
+alteracionQueGenera(compuesto(Compuesto), Alteracion):-
+    composicion(Compuesto, Elementos),
     findall(NivelDeFalopa, (nivelFalopez(UnElemento,NivelDeFalopa), member(UnElemento, Elementos)), NivelesDeFalopa),
-    sumlist(NivelesDeFalopa, Alteracion).
+    sum_list(NivelesDeFalopa, Alteracion).
 
 
 % Punto 6

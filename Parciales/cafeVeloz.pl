@@ -90,13 +90,22 @@ nivelFalopez(cocaina, 100).
 nivelFalopez(extasis, 120).
 nivelFalopez(omeprazol, 5).
 
-%cuantaFalopaTiene(Jugador, NivelAlteracion):-
-    %findall(AlteracionDeUnProducto, alteracionQueGenera(Jugador, %AlteracionDeUnProducto), Alteraciones),
- %   sumlist(Alteraciones, NivelAlteracion).
+cuantaFalopaTiene(Jugador, NivelAlteracion):-
+    tomo(Jugador,_),
+    findall(AlteracionDeUnProducto, (alteracionQueGenera(Producto, AlteracionDeUnProducto), tomo(Jugador, Producto)), Alteraciones),
+    sumlist(Alteraciones, NivelAlteracion).
 
-%alteracionQueGenera(Jugador, AlteracionProducto):-
-%    tomo(Jugador)
-    
+alteracionQueGenera(Producto, 0):-
+    tomo(_,producto(Producto,_)).
+alteracionQueGenera(Sustancia, Alteracion):-
+    tomo(_,sustancia(Sustancia)),
+    nivelFalopez(Sustancia, Alteracion).
+alteracionQueGenera(Compuesto, Alteracion):-
+    tomo(_,compuesto(Compuesto, Elementos)),
+    findall(NivelDeFalopa, (nivelFalopez(UnElemento,NivelDeFalopa), member(UnElemento, Elementos)), NivelesDeFalopa),
+    sumlist(NivelesDeFalopa, Alteracion).
+
+
 % Punto 6
 medicoConProblemas(Medico):-
     atiende(Medico,_),

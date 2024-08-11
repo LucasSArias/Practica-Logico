@@ -16,3 +16,5 @@ Vocaloid: https://docs.google.com/document/d/1xbXPZnhwyK5FSHR_oaXU4esfkTd2S-jf3r
 Afirmativo: https://docs.google.com/document/d/1v56pWG_Q9tIA-QdaMk4jilz_JLs5TGzIT7qJTCpDOI8/edit
 
 Asadito: https://drive.google.com/file/d/16X4eXajSB6sMF-zMWmgrky7jtridl9ZH/view
+
+Cafe Veloz: https://drive.google.com/file/d/1SynnBsG3gj-L_9fYzvEFIFYfTV_hCF56/view
